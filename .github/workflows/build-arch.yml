@@ -33,7 +33,7 @@ jobs:
           Packages=base,pacman
           
           [Build]
-          ToolsTreeDistribution=arch
+          ToolsTreeDistribution=debian
           Environment=SYSTEMD_REPART_MKFS_OPTIONS_EROFS="--quiet"
           
           [Runtime]
