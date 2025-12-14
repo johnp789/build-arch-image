@@ -30,6 +30,7 @@ jobs:
           
           [Content]
           KernelCommandLine=systemd.default_device_timeout_sec=180
+          Packages=base
           
           [Build]
           ToolsTreeDistribution=arch
