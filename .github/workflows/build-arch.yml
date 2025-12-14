@@ -15,20 +15,25 @@ jobs:
           git clone https://github.com/systemd/mkosi
           sudo ln -s $PWD/mkosi/bin/mkosi /usr/local/bin/mkosi
           mkosi --version
-      
+
       - name: Generate key
+        working-directory: mkosi
         run: sudo mkosi genkey
 
       - name: Summary
+        working-directory: mkosi
         run: sudo mkosi summary
 
       - name: Build tools tree
+        working-directory: mkosi
         run: sudo mkosi -f box -- true
 
       - name: Build image
+        working-directory: mkosi
         run: sudo mkosi -f
 
       - name: Build Arch Linux image
+        working-directory: mkosi
         run: |
           sudo mkosi --distribution=arch \
             --format=directory \
