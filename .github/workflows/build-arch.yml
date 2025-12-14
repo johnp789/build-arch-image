@@ -18,6 +18,27 @@ jobs:
 
       - uses: ./mkosi
 
+      - name: Configure
+        working-directory: mkosi
+        run: |
+          tee mkosi.local.conf <<EOF
+          [Distribution]
+          Distribution=arch
+          
+          [Output]
+          ManifestFormat=json
+          
+          [Content]
+          KernelCommandLine=systemd.default_device_timeout_sec=180
+          
+          [Build]
+          ToolsTreeDistribution=arch
+          Environment=SYSTEMD_REPART_MKFS_OPTIONS_EROFS="--quiet"
+          
+          [Runtime]
+          KVM=yes
+          EOF
+
       - name: Generate key
         working-directory: mkosi
         run: sudo mkosi genkey
