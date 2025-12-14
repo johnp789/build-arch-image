@@ -40,6 +40,10 @@ jobs:
           KVM=yes
           EOF
 
+      - name: Create skeleton directory
+        working-directory: mkosi
+        run: mkdir -p mkosi.skeleton/etc/pacman.d/hooks
+
       - name: Generate key
         working-directory: mkosi
         run: sudo mkosi genkey
