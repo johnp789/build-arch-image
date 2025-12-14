@@ -6,22 +6,22 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04
-  steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-    - name: Install mkosi
-      run: |
-        git clone https://github.com/systemd/mkosi
-        ln -s $PWD/mkosi/bin/mkosi /usr/local/bin/mkosi
-        mkosi --version
-    
-    - name: Set up tools
-      run: |
-        sudo mkosi --include=mkosi-tools --format=directory
+      - name: Install mkosi
+        run: |
+          git clone https://github.com/systemd/mkosi
+          ln -s $PWD/mkosi/bin/mkosi /usr/local/bin/mkosi
+          mkosi --version
+      
+      - name: Set up tools
+        run: |
+          sudo mkosi --include=mkosi-tools --format=directory
 
-    - name: Build Arch Linux image
-      run: |
-        sudo mkosi --distribution=arch \
-          --format=directory \
-          build
+      - name: Build Arch Linux image
+        run: |
+          sudo mkosi --distribution=arch \
+            --format=directory \
+            build
