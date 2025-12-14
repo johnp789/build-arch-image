@@ -13,12 +13,20 @@ jobs:
       - name: Install mkosi
         run: |
           git clone https://github.com/systemd/mkosi
-          ln -s $PWD/mkosi/bin/mkosi /usr/local/bin/mkosi
+          sudo ln -s $PWD/mkosi/bin/mkosi /usr/local/bin/mkosi
           mkosi --version
       
-      - name: Set up tools
-        run: |
-          sudo mkosi --include=mkosi-tools --format=directory
+      - name: Generate key
+        run: sudo mkosi genkey
+
+      - name: Summary
+        run: sudo mkosi summary
+
+      - name: Build tools tree
+        run: sudo mkosi -f box -- true
+
+      - name: Build image
+        run: sudo mkosi -f
 
       - name: Build Arch Linux image
         run: |
