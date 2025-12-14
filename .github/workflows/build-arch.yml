@@ -33,16 +33,20 @@ jobs:
           Packages=base,pacman
           
           [Build]
-          ToolsTreeDistribution=debian
+          ToolsTreeDistribution=arch
           Environment=SYSTEMD_REPART_MKFS_OPTIONS_EROFS="--quiet"
           
           [Runtime]
           KVM=yes
           EOF
 
-      - name: Create skeleton directory
-        working-directory: mkosi
-        run: mkdir -p mkosi.skeleton/etc/pacman.d/hooks
+      - name: Create mkosi.prepare workaround
+        run: |
+          cat <<'EOF' > mkosi.prepare
+          #!/bin/sh
+          mkdir -p "$BUILDROOT/etc/pacman.d/hooks"
+          EOF
+          chmod +x mkosi.prepare
 
       - name: Generate key
         working-directory: mkosi
