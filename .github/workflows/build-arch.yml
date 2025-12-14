@@ -12,9 +12,11 @@ jobs:
 
       - name: Install mkosi
         run: |
-          git clone https://github.com/systemd/mkosi
+          git clone --depth 1 https://github.com/systemd/mkosi
           sudo ln -s $PWD/mkosi/bin/mkosi /usr/local/bin/mkosi
           mkosi --version
+
+      - uses: ./mkosi
 
       - name: Generate key
         working-directory: mkosi
