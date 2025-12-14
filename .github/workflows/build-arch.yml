@@ -23,30 +23,17 @@ jobs:
         run: |
           tee mkosi.local.conf <<EOF
           [Distribution]
-          Distribution=arch
+          Distribution=debian
+          Release=trixie
           
           [Output]
+          Format=directory
           ManifestFormat=json
-          
-          [Content]
-          KernelCommandLine=systemd.default_device_timeout_sec=180
-          Packages=base,pacman
           
           [Build]
           ToolsTreeDistribution=arch
           Environment=SYSTEMD_REPART_MKFS_OPTIONS_EROFS="--quiet"
-          
-          [Runtime]
-          KVM=yes
           EOF
-
-      - name: Create mkosi.prepare workaround
-        run: |
-          cat <<'EOF' > mkosi.prepare
-          #!/bin/sh
-          mkdir -p "$BUILDROOT/etc/pacman.d/hooks"
-          EOF
-          chmod +x mkosi.prepare
 
       - name: Generate key
         working-directory: mkosi
@@ -63,10 +50,3 @@ jobs:
       - name: Build image
         working-directory: mkosi
         run: sudo mkosi -f
-
-      - name: Build Arch Linux image
-        working-directory: mkosi
-        run: |
-          sudo mkosi --distribution=arch \
-            --format=directory \
-            build
